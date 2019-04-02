@@ -3,6 +3,9 @@ Using 4 ESP32s placed around the SCE club room, the microcontrollers record the 
 
 ## Getting started
 ##### For Linux #####
+
+1. Clone the repository with the `--recursive` flag for all submodules.
+
 1. Install the required package to compile with esp-idf.  
 Terminal command: `sudo apt-get install git wget make libncurses-dev flex bison gperf python python-serial`     
 **Note:** one or more of these packages may fail to install. Should that happen, perform a `sudo apt-get update` and try again. 
