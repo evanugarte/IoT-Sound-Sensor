@@ -1,2 +1,3 @@
 esp-idf/
 xtensa-esp32-elf/
+.vscode/
