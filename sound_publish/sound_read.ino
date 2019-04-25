@@ -30,14 +30,13 @@ void loop() {
     connect();
   }
 
-  // TODO: replace with your code
-  // publish a message roughly every second.
+
   if (millis() - lastMillis > 60000) {
     lastMillis = millis();
 
     int val = analogRead(A0);
 
-    String payload = String("sound: ") + val;
+    String payload = String(val);
     Serial.println(payload + "\n");
     //publishTelemetry(mqttClient, "/sensors", getDefaultSensor());
     publishTelemetry(payload);

@@ -15,14 +15,14 @@
 // This file contains your configuration used to connect to Cloud IoT Core
 
 // Wifi newtork details.
-const char *ssid = "wifi name";
-const char *password = "password";
+const char *ssid = "";
+const char *password = "";
 
 // Cloud iot details.
 const char *project_id = "sce-sound-sensor";
 const char *location = "us-central1";
 const char *registry_id = "sound-sensor";
-const char *device_id = "esp-x";
+const char *device_id = "esp-1";
 
 // Configuration for NTP
 const char* ntp_primary = "pool.ntp.org";
