@@ -1,4 +1,37 @@
 /**
+ * This function takes a string and returns a formatted object
+ * that extracts the corner of the room the sensor is in as well
+ * as the sensor's value.
+ * @param str the string to be formatted
+ * @returns result, the object containing location and sound value
+ */
+function getSoundObj(str) {
+  let result = {};
+  if(str.length < 3) return result;
+  let loc = str.substring(0,2);
+
+  switch(loc){
+    case "NE":
+      result.location = loc;
+    break;
+    case "NW":
+      result.location = loc;
+    break;
+    case "SE":
+      result.location = loc;
+    break;
+    case "SW":
+      result.location = loc;
+    break;
+    default:
+      result.location = "nothing";
+  }
+
+  result.value = str.substring(3,str.length);
+  return result;
+}
+
+/**
  * Triggered from a message on the Cloud Pub/Sub topic "sound-data"
  *
  * @param {!Object} event Event payload.
@@ -40,11 +73,15 @@ exports.helloPubSub = (data, context) => {
     ? Buffer.from(pubSubMessage.data, 'base64').toString()
     : 'No value.';
   
+
+  let resultObj = getSoundObj(soundVal);
+
   /**
    * Finally, we write to firestore. The hierarchy can be seen as follows.
    * collection sound-data
    *    doc for each day ("Monday", "Tuesday", etc.)
    *        collection for a sound reading done every minute
+   *          - location: the corner of the room where the ESP is
    *          - sound: sensor sound data
    *          - minutes: minute of the hour that the measurement was made
    */
@@ -52,7 +89,8 @@ exports.helloPubSub = (data, context) => {
     .doc(days[d.getDay()])
   	.collection(d.getHours().toString())
     .add({
-    sound: soundVal,
-    minutes: d.getMinutes().toString()
+      location: resultObj.location,
+      sound: resultObj.value,
+      minutes: d.getMinutes().toString()
   });
 };
