@@ -76,21 +76,29 @@ exports.helloPubSub = (data, context) => {
 
   let resultObj = getSoundObj(soundVal);
 
-  /**
-   * Finally, we write to firestore. The hierarchy can be seen as follows.
-   * collection sound-data
-   *    doc for each day ("Monday", "Tuesday", etc.)
-   *        collection for a sound reading done every minute
-   *          - location: the corner of the room where the ESP is
-   *          - sound: sensor sound data
-   *          - minutes: minute of the hour that the measurement was made
-   */
-  firestore.collection("sound-data")
-    .doc(days[d.getDay()])
-  	.collection(d.getHours().toString())
-    .add({
-      location: resultObj.location,
-      sound: resultObj.value,
-      minutes: d.getMinutes().toString()
-  });
+  if(resultObj.location === "nothing") {
+    /**
+     * If a message published was not up to regular standars, the location
+     * will be "nothing", and we won't bother adding it to firestore.
+     */
+    return;
+  } else {
+    /**
+     * Finally, we write to firestore. The hierarchy can be seen as follows.
+     * collection sound-data
+     *    doc for each day ("Monday", "Tuesday", etc.)
+     *        collection for a sound reading done every minute
+     *          - location: the corner of the room where the ESP is
+     *          - sound: sensor sound data
+     *          - minutes: minute of the hour that the measurement was made
+     */
+    firestore.collection("sound-data")
+      .doc(days[d.getDay()])
+      .collection(d.getHours().toString())
+      .add({
+        location: resultObj.location,
+        sound: resultObj.value,
+        minutes: d.getMinutes().toString()
+    });
+  }
 };
