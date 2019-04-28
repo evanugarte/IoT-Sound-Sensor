@@ -11,9 +11,8 @@ export default class Analytics extends React.Component {
   }
 
   handlePress = () => {
-    getSoundData("Thursday", "15");
+    getSoundData();
     console.log("GO");
-    
   }
 
   render() {
