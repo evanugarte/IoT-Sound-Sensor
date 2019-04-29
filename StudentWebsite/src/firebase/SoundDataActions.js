@@ -5,32 +5,28 @@ import { getDay, getHour } from "../helpers/TimeConvert";
 firebase.initializeApp(config);
 let database = firebase.firestore();
 
-export const getSoundData = () => {
-  console.log("getting sound from ", getDay(), getHour());
+export const getSoundData = (callback, day = getDay(), hour = getHour()) => {
   let searchResults = [];
-  database.collection("sound-data").doc(getDay()).collection(getHour())
+  database.collection("sound-data").doc(day).collection(hour)
     .get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         let curr = doc.data();
-        console.log(curr);
         searchResults.push(curr);
       });
+      callback(searchResults);
     });
-  return searchResults;
 };
 
 export const listenForData = (callback) => {
-  
-  database.collection("sound-data").doc(getDay()).collection(getHour())
+  database.collection("sound-data")
+    .doc(getDay()).collection(getHour())
     .onSnapshot(function(snapshot) {
       snapshot.docChanges().forEach(function(change) {
         if(change.type === "added")
         {
-          console.log("sum happened mane");
-          callback();
+          callback(change.doc.data());
         }
       });
     });
 };
-
