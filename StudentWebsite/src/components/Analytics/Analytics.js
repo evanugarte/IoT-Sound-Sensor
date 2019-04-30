@@ -1,12 +1,9 @@
 import React from "react";
 import { 
-  Button, 
-  ButtonDropdown, 
-  DropdownToggle, 
-  DropdownItem,
-  DropdownMenu
+  Button
 } from "reactstrap";
 import { getSoundData } from "../../firebase/SoundDataActions";
+import DayChoice from "./DayChoice";
 
 export default class Analytics extends React.Component {
 
@@ -15,16 +12,6 @@ export default class Analytics extends React.Component {
     super(props);
     this.state = {
       dropdownOpen: false,
-      days: [
-        {index: 0, name: "Sunday"},
-        {index: 1, name: "Monday"},
-        {index: 2, name: "Tuesday"},
-        {index: 3, name: "Wednesday"},
-        {index: 4, name: "Thursday"},
-        {index: 5, name: "Friday"},
-        {index: 6, name: "Saturday"}
-      ],
-      selectedDay: "",
       selectedDayIndex: -1
     };
   }
@@ -40,9 +27,8 @@ export default class Analytics extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(e);
+    console.log(e.target.id);
     this.setState({
-      selectedDay: e.target.value,
       index: e.target.id
     });   
   }
@@ -55,26 +41,9 @@ export default class Analytics extends React.Component {
     return (
       <div>
         <Button onClick={this.handlePress}>Analytics!</Button>
-        <ButtonDropdown 
-          isOpen={this.state.dropdownOpen} 
-          toggle={this.toggle}>
-          <DropdownToggle caret>
-            {this.state.selectedDay === "" ? "Select Day..." : this.state.selectedDay}
-          </DropdownToggle>
-          <DropdownMenu>
-            {this.state.days.map((day) => {
-              return (
-                <DropdownItem
-                  key={day.index}
-                  id={day.index}
-                  value={day.name}
-                  onClick={this.handleChange}>
-                  {day.name}
-                </DropdownItem>
-              );
-            })}
-          </DropdownMenu>
-        </ButtonDropdown>
+        <DayChoice 
+          handleChange={this.handleChange}
+        />
       </div>
     );
   }
