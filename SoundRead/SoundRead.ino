@@ -57,8 +57,8 @@ void loop() {
      * This is where we format the message, the location 
      * corresponds to a corner in the room ("NE", "NW", "SE", "SW")
     */
-    String location = "NE"
-    String payload = location + ": " + String(sound_avg);
+    String location = "NE";
+    String payload = location + ":" + String(sound_avg);
 
     // Uncomment the lines below for debugging
     // Serial.println("Time's up! The average was: " + payload + "\n");
