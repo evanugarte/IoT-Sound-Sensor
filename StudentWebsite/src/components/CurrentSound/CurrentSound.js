@@ -1,5 +1,5 @@
 import React from "react";
-import { listenForData } from "../firebase/SoundDataActions";
+import { listenForData } from "../../firebase/SoundDataActions";
 
 export default class CurrentSound extends React.Component {
   constructor(props) {

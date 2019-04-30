@@ -6,7 +6,7 @@ import {
   DropdownItem,
   DropdownMenu
 } from "reactstrap";
-import { getSoundData } from "../firebase/SoundDataActions";
+import { getSoundData } from "../../firebase/SoundDataActions";
 
 export default class Analytics extends React.Component {
 
