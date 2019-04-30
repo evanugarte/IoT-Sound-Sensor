@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { 
-  ButtonDropdown, 
-  DropdownToggle, 
-  DropdownItem,
-  DropdownMenu
+  Button,
+  ButtonGroup
 } from "reactstrap";
 
 export default class DayChoice extends React.Component {
@@ -12,16 +10,7 @@ export default class DayChoice extends React.Component {
     super(props);
     this.state = {
       dropdownOpen: false,
-      days: [
-        {index: 0, name: "Sunday"},
-        {index: 1, name: "Monday"},
-        {index: 2, name: "Tuesday"},
-        {index: 3, name: "Wednesday"},
-        {index: 4, name: "Thursday"},
-        {index: 5, name: "Friday"},
-        {index: 6, name: "Saturday"}
-      ],
-      selectedDay: ""
+      selectedDay: null
     };
   }
 
@@ -31,6 +20,13 @@ export default class DayChoice extends React.Component {
     });
   }
 
+  decideButtonColor = (val, stateVal) => {
+    if(stateVal !== null && val === stateVal) {
+      return "primary";
+    } else {
+      return "secondary";
+    }
+  }
 
   handleChange = (e) => {
     this.setState({
@@ -41,26 +37,20 @@ export default class DayChoice extends React.Component {
 
   render() {
     return (
-      <ButtonDropdown 
-        isOpen={this.state.dropdownOpen} 
-        toggle={this.toggle}>
-        <DropdownToggle caret>
-          {this.state.selectedDay === "" ? "Select Day..." : this.state.selectedDay}
-        </DropdownToggle>
-        <DropdownMenu>
-          {this.state.days.map((day) => {
-            return (
-              <DropdownItem
-                key={day.index}
-                id={day.index}
-                value={day.name}
-                onClick={this.handleChange}>
-                {day.name}
-              </DropdownItem>
-            );
-          })}
-        </DropdownMenu>
-      </ButtonDropdown>
+      <ButtonGroup>
+        {this.props.days.map((day) => {
+          return (
+            <Button
+              key={day.index}
+              color={this.decideButtonColor(day.name, this.state.selectedDay)}
+              id={day.index}
+              value={day.name}
+              onClick={this.handleChange}>
+              {day.name}
+            </Button>
+          );
+        })}
+      </ButtonGroup>
     );
   }
 }
