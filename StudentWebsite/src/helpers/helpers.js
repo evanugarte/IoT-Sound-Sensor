@@ -18,7 +18,7 @@ export const soundAvg = (arr) => {
   }
   sum /= arr.length;
   
-  return sum;
+  return sum.toFixed(2);
 };
 
 export const getDay = () => {
