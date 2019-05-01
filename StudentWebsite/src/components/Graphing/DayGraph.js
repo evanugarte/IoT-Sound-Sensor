@@ -6,8 +6,8 @@ export default class DayGraph extends React.Component {
     super(props);
     this.state = {
       data: {
-        labels: [8, 9, 10, 11, 12, 13, 14,
-          15, 16, 17, 18, 19, 20, 21,],
+        labels: ["8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00",
+          "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00",],
         datasets: []
       },
       options: {
@@ -33,7 +33,9 @@ export default class DayGraph extends React.Component {
       label: label, 
       fillColor: color, 
       strokeColor: color,
-      pointStrokeColor: color, 
+      pointStrokeColor: color,
+      pointHoverBackgroundColor: color, 
+      pointHoverBorderColor: color,
       fill: false 
     };
   }
@@ -43,7 +45,7 @@ export default class DayGraph extends React.Component {
     let NWobj = this.getSoundObj("Couch", "#ffd6d6");
     let SEobj = this.getSoundObj("Entrance", "#d6e7ff");
     let SWobj = this.getSoundObj("Member Entrance", "#dcd6ff" );
-    let totalObj = this.getSoundObj("Total Average", "#e00000");
+    let totalObj = this.getSoundObj("Total Average", "#9fb9ea");
     this.props.data.map((data) => {
       NEobj.data.push(data.NEAvg);
       NWobj.data.push(data.NWAvg);
@@ -56,10 +58,10 @@ export default class DayGraph extends React.Component {
       labels: this.state.data.labels,
       datasets: []
     };
-    oldData.datasets.push(NEobj);
-    oldData.datasets.push(NWobj);
-    oldData.datasets.push(SEobj);
-    oldData.datasets.push(SWobj);
+    // oldData.datasets.push(NEobj);
+    // oldData.datasets.push(NWobj);
+    // oldData.datasets.push(SEobj);
+    // oldData.datasets.push(SWobj);
     oldData.datasets.push(totalObj);
     this.setState({
       data: oldData

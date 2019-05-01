@@ -4,6 +4,7 @@ import {
   Button,
   ButtonGroup
 } from "reactstrap";
+import { getDay } from "../../helpers/helpers";
 
 export default class DayChoice extends React.Component {
   constructor(props) {
@@ -12,6 +13,13 @@ export default class DayChoice extends React.Component {
       dropdownOpen: false,
       selectedDay: null
     };
+  }
+
+  componentDidMount() {
+    let d = new Date();
+    this.setState({
+      selectedDay: getDay(d.getDay())
+    });
   }
 
   toggle = () => {

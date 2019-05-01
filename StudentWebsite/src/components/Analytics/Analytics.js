@@ -1,6 +1,5 @@
 import React from "react";
 import { 
-  Button,
   Container,
   ListGroup,
   Col,
@@ -10,6 +9,7 @@ import { getSoundData } from "../../firebase/SoundDataActions";
 import DayChoice from "./DayChoice";
 import TimeData from "./TimeData";
 import DayGraph from "../Graphing/DayGraph";
+import HeatMap from "../Graphing/HeatMap";
 
 export default class Analytics extends React.Component {
 
@@ -42,6 +42,11 @@ export default class Analytics extends React.Component {
     getSoundData(this.getSoundValues);
   }
 
+  componentDidMount() {
+    let d = new Date();
+    this.renderDayInfo(d.getDay());
+  }
+
   handleChange = (e) => {
     this.setState({
       selectedDayIndex: e.target.id
@@ -72,17 +77,18 @@ export default class Analytics extends React.Component {
 
   renderGraph = () => {
     return (
-      <DayGraph data={this.state.hourlyAvg} />);
-  }
-
-  getSoundValues = (arr) => {
-    arr.allSound.map(el => console.log(el));
+      <React.Fragment>
+        <h3>Total Average</h3>
+        <DayGraph data={this.state.hourlyAvg} />
+        <h3>Hourly Heat Map</h3>
+        <HeatMap data={this.state.hourlyAvg} />
+      </React.Fragment>
+    );
   }
 
   render() {
     return (
       <div>
-        <Button onClick={this.handlePress}>Analytics!</Button>
         <DayChoice 
           days={this.state.days}
           handleChange={this.handleChange}
