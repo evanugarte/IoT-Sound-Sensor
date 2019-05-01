@@ -1,11 +1,15 @@
 import React from "react";
 import { 
   Button,
-  Container
+  Container,
+  ListGroup,
+  Col,
+  Row
 } from "reactstrap";
 import { getSoundData } from "../../firebase/SoundDataActions";
 import DayChoice from "./DayChoice";
-import DayInfo from "./DayInfo";
+import TimeData from "./TimeData";
+import DayGraph from "../Graphing/DayGraph";
 
 export default class Analytics extends React.Component {
 
@@ -46,13 +50,12 @@ export default class Analytics extends React.Component {
   }
 
   renderDayInfo = (index) => {
-    console.log("gang");
     this.setState({
       hourlyAvg: []
     });
     
     if(index !== -1) {
-      for(let i = 0; i < 24; i++) {
+      for(let i = 8; i < 22; i++) {
         getSoundData(this.addToAvg, this.state.days[index].name, i.toString());
       }
     }
@@ -65,7 +68,11 @@ export default class Analytics extends React.Component {
     this.setState({
       hourlyAvg: oldAvg
     });
-    console.log(oldAvg);
+  }
+
+  renderGraph = () => {
+    return (
+      <DayGraph data={this.state.hourlyAvg} />);
   }
 
   getSoundValues = (arr) => {
@@ -80,18 +87,25 @@ export default class Analytics extends React.Component {
           days={this.state.days}
           handleChange={this.handleChange}
         />
-        {this.state.hourlyAvg.map((hour, key) => {
-          return (
-            <Container key ={key}>
-              <h4>{key}:00</h4>
-              <p>NW Avg: {hour.NWAvg}</p>
-              <p>NE Avg: {hour.NEAvg}</p>
-              <p>SW Avg: {hour.SWAvg}</p>
-              <p>SE Avg: {hour.SEAvg}</p>
-              <h3>Total Avg: {hour.totalAvg}</h3>
-            </Container>
-          );
-        })}
+        <Container>
+          <Row>
+            <Col>
+              {this.state.hourlyAvg.map((hour, key) => {
+                return (
+                  <ListGroup key={key}>
+                    <TimeData
+                      hour={key}
+                      data={hour}
+                    />
+                  </ListGroup>
+                );
+              })}
+            </Col>
+            <Col>
+              {this.renderGraph()}
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

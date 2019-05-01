@@ -16,7 +16,6 @@ export const soundAvg = (arr) => {
   for(let i = 0; i < arr.length; i++) {
     sum += parseFloat(arr[i].sound);
   }
-  console.log("sum is ", sum);
   sum /= arr.length;
   
   return sum;
