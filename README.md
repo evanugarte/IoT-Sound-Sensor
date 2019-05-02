@@ -1,37 +1,45 @@
-# IoT Sound Sensor
-Using 4 ESP32s placed around the SCE club room, the microcontrollers record the noise levels to track busyness.
+# SmartNoiseSense
+Using ESP32s, sound sensors and Google Cloud Platform, this project tracks the noise levels of the Software and Computer Engineering Society's club room.
 
-## Getting started
-##### For Linux #####
+## Project Folder Description
+The project is split into three folders, `GoogleCloud` `SoundRead` and `StudentWebsite`.
+- GoogleCloud: Contains the code for the functions that are executed in the cloud to handle published messages.
+- SoundRead: Holds all of the code that is flashed onto the ESP32 to read noise and publish the data to a Google PubSub topic.
+- StudentWebsite: Holds all of the website code, written using React.js, to read the room's current noise level and past readings.
 
-1. Clone the repository with the `--recursive` flag for all submodules.
+### Technologies Used
+**Cloud**
 
-1. Install the required package to compile with esp-idf.  
-Terminal command: `sudo apt-get install git wget make libncurses-dev flex bison gperf python python-serial`     
-**Note:** one or more of these packages may fail to install. Should that happen, perform a `sudo apt-get update` and try again. 
+[Google Cloud Platform](https://cloud.google.com/)
 
-2. Download and install the xtensa-esp32-elf toolchain. 
-- 64 bit version: https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz 
-- 32 bit version can be found here: https://dl.espressif.com/dl/xtensa-esp32-elf-linux32-1.22.0-80-g6c4433a-5.2.0.tar.gz. *Clicking on this link will download the zipped file to your default Downloads directory.* 
+[Google IoT Core](https://cloud.google.com/iot-core/)
 
-3. Navigate to the `SmartNoiseSense` directory and install the zip file.
-For linux users, this will be:
-> `tar -xzf ~/Downloads/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz`
+[Google Cloud IoT Arduino Library](https://github.com/GoogleCloudPlatform/google-cloud-iot-arduino)
 
-For WSL users, this will be:
-> `tar -xzf ~/../../mnt/c/Users/(your Windows username)/Downloads/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz`.
+[Firebase](https://firebase.google.com)
 
-3. Set your PATH variables in `.profile` to add the esp-idf and xtensa toolchain paths. In the terminal you can find the file with:
-`cd ~`     
-`ls -a`     
-**Example lines:**  
-`export PATH=$PATH:$HOME/Documents/SmartSoundSense/xtensa-esp32-elf/bin`  
-`export IDF_PATH=~/Documents/SmartSoundSense/esp-idf`     
-Once you update the paths, enter the command `source ~/.profile` for the changes to take effect.
+[OpenSSL Elliptic Curve Cryptography](https://wiki.openssl.org/index.php/Elliptic_Curve_Cryptography)
 
-4. Confirm you correctly set your PATH variables by entering either the command `echo $PATH` or `printenv $PATH`. You should see a long list of file paths with the path you just created at the end of it. Do the same commands for `IDF_PATH`.
+**Hardware**
 
-5. Inside the `hello_blink` directory, enter `make menuconfig`. This should open the ESP32 toolchain configuration menu. Navigate to Serial Flasher config -> Default Serial Port and change this value to the usb port that your ESP32 is connected to. 
-**Note:** If you are using Windows, you will need to determine which COM port your ESP32 is connected to, and use the linux naming configuration. For example, if your ESP32 is connected to COM4, you would enter /dev/ttyS4. 
+[ESP32 Microcontroller](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z)
 
-6. Once done, save and exit the configuration menu. Run the command `make flash` flash `hello_blink` onto your ESP32. When the flashing has finished, run the command `make monitor` to see the output. Press `ctrl+]` to exit.
+[Sparkfun Sound Sensor](https://www.sparkfun.com/products/12642)
+
+[Arduino IDE](https://www.arduino.cc/en/Main/Software)
+
+**Website**
+
+[React.js](https://reactjs.org/)
+
+[Chart.js](https://www.chartjs.org/)
+
+### Special Thanks
+
+[Software and Computer Engineering Society (SCE)](http://sce.engr.sjsu.edu)
+
+[Khalil Estell](https://github.com/kammce)
+
+[Pranav Patil](https://github.com/pranavpatilsce)
+
+You, the reader
