@@ -78,10 +78,14 @@ export default class Analytics extends React.Component {
   renderGraph = () => {
     return (
       <React.Fragment>
-        <h3>Total Average</h3>
-        <DayGraph data={this.state.hourlyAvg} />
-        <h3>Hourly Heat Map</h3>
-        <HeatMap data={this.state.hourlyAvg} />
+        <Row>
+          <h3>Total Average</h3>
+          <DayGraph data={this.state.hourlyAvg} />
+        </Row>
+        <Row>
+          <h3>Hourly Heat Map</h3>
+          <HeatMap data={this.state.hourlyAvg} />
+        </Row>
       </React.Fragment>
     );
   }
