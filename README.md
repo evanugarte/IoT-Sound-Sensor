@@ -7,6 +7,14 @@ The project is split into three folders, `GoogleCloud` `SoundRead` and `StudentW
 - SoundRead: Holds all of the code that is flashed onto the ESP32 to read noise and publish the data to a Google PubSub topic.
 - StudentWebsite: Holds all of the website code, written using React.js, to read the room's current noise level and past readings.
 
+## To Run the Student Website
+1. Install [Node.js](https://nodejs.org/en/)
+  - You can verify the installation by entering `node --version` in your terminal
+2. With node installed, clone this repository with `git clone https://github.com/evanugarte/SmartNoiseSense` or download the `.zip` file
+3. Enter the directory with `cd SmartNoiseSense/StudentWebsite`
+4. Install dependencies with `npm install`
+5. Run the website with `npm run start`
+
 ### Technologies Used
 **Cloud**
 
